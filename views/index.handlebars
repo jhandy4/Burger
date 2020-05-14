@@ -1,0 +1,95 @@
+<h1>Eat Da Burger!</h1>
+
+<ul>
+  {{#each burgers}}
+  <li>
+    <p>
+      {{this.id}}. {{this.burger}}
+
+      <button data-planid="{{this.id}}" class="devour">Devour!</button>
+    </p>
+  </li>
+  {{/each}}
+</ul>
+
+<h2>Add a Burger</h2>
+<form id="createburger" class="button-size">
+  <textarea type="text" name="movie"></textarea>
+  <button type="submit">Add Burger!</button>
+</form>
+
+<h2>Devour Burger</h2>
+<form id="updatemovie" class="button-size">
+  <select name="id">
+		{{#each movies}}
+			<option value="{{this.id}}">{{this.burger}}</option>
+		{{/each}}
+	</select>
+  <textarea type="text" name="movie" placeholder="movie"></textarea>
+  <button type="submit">Devour Burger!</button>
+</form>
+
+<script type="text/javascript">
+  $(".delburger").on("click", function(event) {
+    // Get the ID from the button.
+    // This is shorthand for $(this).attr("data-planid")
+    var id = $(this).data("burgerid");
+
+    // Send the DELETE request.
+    $.ajax(`/api/burgers/${id}`, {
+      type: "DELETE"
+    }).then(
+      () => {
+        console.log("deleted id ", id);
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+
+  $("#createburger").on("submit", event => {
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+
+    // [name=plan] will find an element with a "name" attribute equal to the string "plan"
+    var newPlan = {
+      plan: $("#createburger [name=burger]").val().trim()
+    };
+
+    // Send the POST request.
+    $.ajax("/api/burgers", {
+      type: "POST",
+      data: newBurger
+    }).then(
+      () => {
+        console.log("created new burger");
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+
+  $("#updateburger").on("submit", event => {
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+
+    // Get the ID by finding an element with a "name" attribute equal to the string "id"
+    var id = $("[name=id]").val().trim();
+
+    var updatedPlan = {
+      plan: $("#updateburger [name=burger]").val().trim()
+    };
+
+    // Send the PUT request.
+    $.ajax(`/api/burgers/${id}`, {
+      type: "PUT",
+      data: updatedburger
+    }).then(
+      () => {
+        console.log("updated id ", id);
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+</script>

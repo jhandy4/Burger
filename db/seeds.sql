@@ -1,4 +1,4 @@
-USE burgers_db;
 
-INSERT INTO burgers_db (burger_name)
+
+INSERT INTO burgers (burger_name)
 VALUES ("Hamburger"), ("Cheeseburger"), ("Ultimate Burger");

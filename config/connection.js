@@ -1,15 +1,16 @@
 var mysql = require("mysql");
 
 if(process.env.NODE_ENV === "production") {
-var connection = mysql.createConnection(process.env.JASWDB);
+var connection = mysql.createConnection(process.env.JASWDB)
 } else {
+  var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
     password: "27526",
     database: "burgers_db"
   });
-}
+};
   
   // Make connection.
   connection.connect(function(err) {

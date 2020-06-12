@@ -1,4 +1,3 @@
-
-
-INSERT INTO burgers (burger_name)
-VALUES ("Hamburger"), ("Cheeseburger"), ("Ultimate Burger");
+USE burgers_db;
+INSERT INTO burgers(burger_name, devoured)
+VALUES ("hamburger",false), ("cheeseburger",false), ("baconburger",false);
